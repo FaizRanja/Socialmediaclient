@@ -64,6 +64,30 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+// update user profile picture 
+// store/reducer/User.js
+
+export const updateprofilepic = createAsyncThunk(
+  "user/updateprofilepic",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const res = await axios.put("/api/v1/user/profilepicture", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true, // if using cookies for auth
+      });
+      return res.data.profilePicture;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+
+
+
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -104,6 +128,21 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload?.message || "Login failed";
+      })
+
+// add cases for  update profile pic
+       .addCase(updateprofilepic.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateprofilepic.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user;
+        state.message = " Profile pick update  successfully!";
+      })
+      .addCase(updateprofilepic.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload?.message || "profile pick update  failed";
       })
 
             .addCase(logoutUser.fulfilled, (state) => {

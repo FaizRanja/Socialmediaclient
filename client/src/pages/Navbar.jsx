@@ -15,7 +15,7 @@ const dispath=useDispatch()
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-2">
-      <a className="navbar-brand fw-bold text-primary" href="/">MySocial</a>
+      <NavLink className="navbar-brand fw-bold text-primary" to="/">MySocial</NavLink>
 
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
         <span className="navbar-toggler-icon"></span>
