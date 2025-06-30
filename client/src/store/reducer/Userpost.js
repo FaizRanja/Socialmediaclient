@@ -37,32 +37,32 @@ export const fetchAllPosts = createAsyncThunk(
 // Async Thunk to followuser
 export const followuser = createAsyncThunk(
   "user/followuser",
-  async (followId, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
+    console.log(id)
     try {
-      const response = await axios.post("/api/v1/user/followuser", {followId}, {
-        withCredentials: true, // ✅ important
+      const res = await axios.post(`/api/v1/user/followuser/${id}`, {}, {
+        withCredentials: true,
       });
-      return response.data;
+      return res.data; // may return updated user/follow list
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || { message: "Failed to register user" }
-      );
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
 
 
+
 // Async Thunk to followuser
 export const unfollowuser = createAsyncThunk(
   "user/unfollowuser",
-  async (targetUser, thunkAPI) => {
+  async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/v1/user/unfollowuser",targetUser);
-      return response.data;
+      const res = await axios.post(`/api/v1/user/unfollowuser/${id}`, {}, {
+        withCredentials: true,
+      });
+      return res.data; // may return updated user/follow list
     } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data || { message: "Failed to get  All  posts" }
-      );
+      return rejectWithValue(error.response.data.message);
     }
   }
 );

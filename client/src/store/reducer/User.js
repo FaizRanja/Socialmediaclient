@@ -84,6 +84,20 @@ export const updateprofilepic = createAsyncThunk(
   }
 );
 
+// user.js or userSlice.js
+export const getuserdetalis = createAsyncThunk(
+  "user/getuserdetalis",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get("/api/v1/user/me", {
+        withCredentials: true, // if using cookies
+      });
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Something went wrong");
+    }
+  }
+);
 
 
 
@@ -144,6 +158,20 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload?.message || "profile pick update  failed";
       })
+// add some cases for get the user details 
+     .addCase(getuserdetalis.pending, (state) => {
+  state.isLoading = true;
+  state.error = null;
+})
+.addCase(getuserdetalis.fulfilled, (state, action) => {
+  state.isLoading = false;
+  state.user = action.payload.user;
+  state.message = "User details fetched!";
+})
+.addCase(getuserdetalis.rejected, (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+})
 
             .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;

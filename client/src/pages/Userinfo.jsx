@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Avatar,
@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useDispatch, useSelector } from "react-redux";
-import { updateprofilepic } from "../store/reducer/User";
+import { getuserdetalis, updateprofilepic } from "../store/reducer/User";
 
 const Userinfo = () => {
   const { user, isLoading } = useSelector((state) => state.authreducer);
@@ -43,6 +43,11 @@ const Userinfo = () => {
       setUploading(false);
     }
   };
+
+
+    // useEffect(() => {
+    // dispatch(getuserdetalis());
+    // },[])
 
   if (isLoading) return <div>Loading...</div>;
 

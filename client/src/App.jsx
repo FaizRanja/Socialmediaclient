@@ -7,6 +7,7 @@ import Home from "./Components/Home/Home";
 import {  useSelector } from "react-redux";
 import Profile from "./Components/profile/Profile";
 import AppLayout from "./Layout/AppLayout";
+import Setting from "./pages/Setting";
 
 
 const AppContent = () => {
@@ -39,6 +40,7 @@ if(isLoading){
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<AppLayout />} />
            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Setting />} />
         </Route>
       </Routes>
     </>

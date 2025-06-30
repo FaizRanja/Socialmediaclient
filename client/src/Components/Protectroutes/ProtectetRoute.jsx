@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = ({ isAdmin }) => {
-  const { isLoading, isAuthenticated, user } = useSelector((state) => state.authreducer);
+  const { isLoading,isAuthenticated, user } = useSelector((state) => state.authreducer);
+
+  // let isAuthenticated =true
+  
 
   
-  
+
   if (isLoading) {
     return <div>Loading...</div>; // Or show a spinner
   }
